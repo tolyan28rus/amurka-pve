@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMURKA PVE MOD — SCUM PVE Сервер</title>
+    <meta name="description" content="PVE-сервер AMURKA PVE MOD для SCUM. 1000 элементов строительства, кастомные квесты, роботы по выходным, орда зомби. IP: 85.88.179.207:7004">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nicbarker/glightbox@master/dist/css/glightbox.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-icon"><i class="fas fa-skull-crossbones"></i></span>
+                <span class="logo-text">AMURKA <span class="accent">PVE</span></span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about" class="nav-link">О сервере</a></li>
+                <li><a href="#status" class="nav-link">Статус</a></li>
+                <li><a href="#rules" class="nav-link">Правила</a></li>
+                <li><a href="#mods" class="nav-link">Моды</a></li>
+                <li><a href="#mod-advantages" class="nav-link">Преимущества</a></li>
+                <li><a href="#commands" class="nav-link">Команды</a></li>
+                <li><a href="#news" class="nav-link">Новости</a></li>
+                <li><a href="#gallery" class="nav-link">Галерея</a></li>
+                <li><a href="#streamers" class="nav-link">Стримеры</a></li>
+                <li><a href="#guides" class="nav-link">Гайд</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                AMURKA <span class="accent">PVE MOD</span>
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+                Погружение в мир выживания и приключений
+            </p>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+                <a href="#guides" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Начать играть
+                </a>
+                <a href="https://disk.yandex.ru/d/GFBxfdeUMHA8mA" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-download"></i> Скачать лаунчер
+                </a>
+                <a href="https://lolka.gg/xq3Mo6u" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-comments"></i> LOLKA
+                </a>
+            </div>
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="0">—</span>
+                    <span class="stat-label">Игроков онлайн</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="100">0</span>
+                    <span class="stat-label">Макс. игроков</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="42">0</span>
+                    <span class="stat-label">Wargm рейтинг</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="479">0</span>
+                    <span class="stat-label">BattleMetrics рейтинг</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Листай вниз</span>
+        </div>
+    </section>
+
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">О сервере</span>
+            </h2>
+            <p class="section-desc" data-aos="fade-up" data-aos-delay="100">
+                PVE-сервер для SCUM с уникальными модами.
+            </p>
+            <div class="hero-buttons about-buttons" data-aos="fade-up" data-aos-delay="200">
+                <a href="https://disk.yandex.ru/d/GFBxfdeUMHA8mA" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i> Скачать лаунчер
+                </a>
+                <a href="https://lolka.gg/xq3Mo6u" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-comments"></i> LOLKA (Чат)
+                </a>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>100% PVE карта</h3>
+                    <p>Вся карта — PVE! Никаких PVP-угроз, только кооператив и развитие. Строй, исследуй, выживай без страха.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>1000 элементов строительства</h3>
+                    <p>Строй где хочешь (кроме POI). Занимай игровые дома и создавай уют. База мечты ждёт тебя!</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Роботы по выходным</h3>
+                    <p>Уникальные ивенты и испытания с роботами каждые выходные. Сражайся с технологическими противниками!</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-skull-crossbones"></i>
+                    </div>
+                    <h3>Орда зомби</h3>
+                    <p>Их много, но они не ломятся в двери. Готовься к настоящим испытаниям с кастомным лутом от NPC.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section status-section" id="status">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Статус сервера</span>
+            </h2>
+            <div class="status-widget" data-aos="fade-up" data-aos-delay="100">
+                <div class="status-header">
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text" id="statusText">Проверка...</span>
+                    </div>
+                    <div class="server-ip" id="copyIp">
+                        <span class="ip-label">IP:</span>
+                        <span class="ip-value" id="serverIp">85.88.179.207:7004</span>
+                        <i class="fas fa-copy copy-icon"></i>
+                    </div>
+                </div>
+                <div class="status-body">
+                    <div class="status-info">
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="info-label">Игровое время</span>
+                                <span class="info-value" id="serverTime">—</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <span class="info-label">Игроки</span>
+                                <span class="info-value"><span id="onlineCount">—</span> / <span id="maxPlayers">100</span></span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-map"></i>
+                            <div>
+                                <span class="info-label">Карта</span>
+                                <span class="info-value" id="currentMap">Islands</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-server"></i>
+                            <div>
+                                <span class="info-label">Версия</span>
+                                <span class="info-value" id="serverVersion">0.768.541</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section rules-section" id="rules">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Правила сервера</span>
+            </h2>
+            <div class="rules-grid">
+                <div class="rule-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="rule-header">
+                        <span class="rule-number">01</span>
+                        <h3>Общие правила</h3>
+                    </div>
+                    <ul class="rule-list">
+                        <li><i class="fas fa-check"></i> Уважай других игроков и администрацию</li>
+                        <li><i class="fas fa-check"></i> Запрещены любые формы читерства</li>
+                        <li><i class="fas fa-check"></i> Используйте русский или английский язык в чате</li>
+                        <li><i class="fas fa-check"></i> Запрещена реклама других серверов</li>
+                    </ul>
+                </div>
+                <div class="rule-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="rule-header">
+                        <span class="rule-number">02</span>
+                        <h3>PVE-правила</h3>
+                    </div>
+                    <ul class="rule-list">
+                        <li><i class="fas fa-check"></i> PvP запрещено вне согласованных зон</li>
+                        <li><i class="fas fa-check"></i> Не уничтожайте базы других игроков</li>
+                        <li><i class="fas fa-check"></i> Не крадите ресурсы и транспорт</li>
+                        <li><i class="fas fa-check"></i> Споры решайте через администрацию</li>
+                    </ul>
+                </div>
+                <div class="rule-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="rule-header">
+                        <span class="rule-number">03</span>
+                        <h3>Правила чата</h3>
+                    </div>
+                    <ul class="rule-list">
+                        <li><i class="fas fa-check"></i> Запрещены оскорбления и маты</li>
+                        <li><i class="fas fa-check"></i> Не спамьте сообщениями</li>
+                        <li><i class="fas fa-check"></i> Используйте команды /report для жалоб</li>
+                        <li><i class="fas fa-check"></i> Не раскрывайте личную информацию</li>
+                    </ul>
+                </div>
+                <div class="rule-card warning" data-aos="fade-up" data-aos-delay="400">
+                    <div class="rule-header">
+                        <span class="rule-number"><i class="fas fa-exclamation-triangle"></i></span>
+                        <h3>Наказания</h3>
+                    </div>
+                    <ul class="rule-list">
+                        <li><i class="fas fa-times"></i> Предупреждение (1-е нарушение)</li>
+                        <li><i class="fas fa-times"></i> Временный бан 24ч (2-е нарушение)</li>
+                        <li><i class="fas fa-times"></i> Постоянный бан (3-е нарушение)</li>
+                        <li><i class="fas fa-times"></i> Бан без предупреждения за читерство</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section mods-section" id="mods">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Моды и плагины</span>
+            </h2>
+            <div class="mods-grid">
+                <div class="mod-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mod-icon"><i class="fas fa-car"></i></div>
+                    <h3>Транспорт без урона</h3>
+                    <p>Бери любую машину и исследуй мир без страха. Транспорт не получает урона при столкновениях.</p>
+                    <span class="mod-tag">Геймплей</span>
+                </div>
+                <div class="mod-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="mod-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>Кастомные NPC</h3>
+                    <p>Торговцы с уникальным лутом и кастомными квестами. Получай награды за выполнение заданий.</p>
+                    <span class="mod-tag">ИИ</span>
+                </div>
+                <div class="mod-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="mod-icon"><i class="fas fa-paw"></i></div>
+                    <h3>Животные на всей карте</h3>
+                    <p>Охота, ресурсы и приключения в каждом уголке карты. Животные разбросаны по всей территории.</p>
+                    <span class="mod-tag">Мир</span>
+                </div>
+                <div class="mod-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="mod-icon"><i class="fas fa-database"></i></div>
+                    <h3>Лут 1.0</h3>
+                    <p>Всё, что нужно для старта и развития! Сбалансированная система лута для комфортной игры.</p>
+                    <span class="mod-tag">Геймплей</span>
+                </div>
+                <div class="mod-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="mod-icon"><i class="fas fa-coins"></i></div>
+                    <h3>Переработанная экономика</h3>
+                    <p>Увеличены цены на мясо, рыбу, ожерелья из ушей, замки, отмычки и другие ценные предметы.</p>
+                    <span class="mod-tag">Экономика</span>
+                </div>
+                <div class="mod-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="mod-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Умный бот и команды</h3>
+                    <p>!startpack, !home, !savedom, !wargm, !vip — управляй игрой прямо из чата!</p>
+                    <span class="mod-tag">Удобство</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section mod-advantages" id="mod-advantages">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Преимущества серверных модов</span>
+            </h2>
+            <p class="section-desc" data-aos="fade-up" data-aos-delay="100">
+                Наши моды работают синхронно на сервере и клиенте — это обеспечивает стабильность и честную игру.
+            </p>
+            <div class="advantages-grid">
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="advantage-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Стабильность</h3>
+                    <p>Сумки и рюкзаки больше не багуются. Корректное отображение ёмкости и веса. Нет рассинхрона между игроком и сервером.</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="advantage-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Гибкость</h3>
+                    <p>Кастомные рецепты крафта, уникальные предметы, балансные механики, экономика, квесты и кланы — всё под контролем сервера.</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="advantage-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Честная игра</h3>
+                    <p>Нельзя получить преимущество через клиентский чит-мод. Единые правила для всех игроков. Стандарт моддинг-сообщества.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section news-section" id="news">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Новости</span>
+            </h2>
+            <div class="news-grid">
+                <article class="news-card featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="news-image">
+                        <div class="news-placeholder"><i class="fas fa-trophy"></i></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-tag">Марафон онлайна</span>
+                        <h3>Кто самый преданный игрок?</h3>
+                        <p>Соревнование на самое большое время, проведенное на сервере. Победители определяются каждые 10 дней.</p>
+                        <p><strong>Призовой фонд:</strong></p>
+                        <ul class="news-list">
+                            <li>1 место — 100 золота</li>
+                            <li>2 место — 50 золота</li>
+                            <li>3 место — 10 золота</li>
+                        </ul>
+                        <p class="news-accent">Первые итоги перед вайпом 29 июня!</p>
+                    </div>
+                </article>
+                <article class="news-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="news-image">
+                        <div class="news-placeholder"><i class="fas fa-box-open"></i></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-tag">Ивент</span>
+                        <h3>Тайник с рандомным лутом</h3>
+                        <p>Каждый час на карте появляется рюкзак со случайным содержимым. Найди его — забери всё!</p>
+                        <ul class="news-list">
+                            <li>Спавн: раз в час</li>
+                            <li>Место: случайный квадрат на карте</li>
+                            <li>Лут: от мусора до легендарки</li>
+                            <li>Условие: онлайн 3+ человек</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="news-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="news-image">
+                        <div class="news-placeholder"><i class="fas fa-clipboard-list"></i></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-tag">Квест</span>
+                        <h3>Постоянный квест от администрации</h3>
+                        <p>Принеси администратору полный железный ящик чипов с NPC.</p>
+                        <p><strong>Награда (на выбор):</strong></p>
+                        <ul class="news-list">
+                            <li>5 золотых модулей памяти</li>
+                            <li>2 шприца слёз феникса (по 3 дозы)</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Галерея</span>
+            </h2>
+            <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
+                <a href="#" class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="gallery-placeholder"><i class="fas fa-image"></i></div>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="gallery-placeholder"><i class="fas fa-image"></i></div>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="gallery-placeholder"><i class="fas fa-image"></i></div>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="gallery-placeholder"><i class="fas fa-image"></i></div>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="gallery-placeholder"><i class="fas fa-image"></i></div>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </a>
+                <a href="#" class="gallery-item" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="gallery-placeholder"><i class="fas fa-image"></i></div>
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </a>
+            </div>
+            <p class="gallery-note" data-aos="fade-up">Скриншоты добавляются игроками в Discord. Присоединяйся!</p>
+        </div>
+    </section>
+
+    <section class="section streamers-section" id="streamers">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Наши стримеры</span>
+            </h2>
+            <p class="section-desc" data-aos="fade-up" data-aos-delay="100">
+                Смотрите прямые эфиры и записи наших игроков на VK Видео Live
+            </p>
+            <div class="streamers-grid" id="streamersGrid" data-aos="fade-up" data-aos-delay="200">
+                <!-- стримеры добавляются через js/main.js -->
+            </div>
+        </div>
+    </section>
+
+    <section class="section commands-section" id="commands">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Команды чата</span>
+            </h2>
+            <p class="section-desc" data-aos="fade-up" data-aos-delay="100">
+                Умный бот и чат-команды: управляйте игрой прямо из чата!
+            </p>
+            <div class="commands-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="command-card">
+                    <code class="command-name">!startpack</code>
+                    <p>Стартовый набор предметов для новичков</p>
+                </div>
+                <div class="command-card">
+                    <code class="command-name">!dailypack</code>
+                    <p>Ежедневный набор предметов</p>
+                </div>
+                <div class="command-card">
+                    <code class="command-name">!home</code>
+                    <p>Телепорт в сохраненный дом</p>
+                </div>
+                <div class="command-card">
+                    <code class="command-name">!savedom</code>
+                    <p>Сохранить текущий дом как точку телепорта</p>
+                </div>
+                <div class="command-card">
+                    <code class="command-name">!wargm</code>
+                    <p>Получение покупок из магазина</p>
+                </div>
+                <div class="command-card">
+                    <code class="command-name">!vip</code>
+                    <p>Проверка VIP-статуса</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section guides-section" id="guides">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                <span class="accent">Как начать играть</span>
+            </h2>
+            <div class="guides-timeline">
+                <div class="guide-step" data-aos="fade-right" data-aos-delay="100">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Скачай SCUM</h3>
+                        <p>Приобрети игру в Steam. Минимальные системные требования: 8GB RAM, GTX 660.</p>
+                    </div>
+                </div>
+                <div class="guide-step" data-aos="fade-left" data-aos-delay="150">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Скачай лаунчер</h3>
+                        <p>Скачай архив с лаунчером, распакуй на рабочий стол и запусти. <a href="https://disk.yandex.ru/d/GFBxfdeUMHA8mA" target="_blank" style="color: var(--accent-green);">Скачать с Яндекс.Диска</a></p>
+                    </div>
+                </div>
+                <div class="guide-step" data-aos="fade-right" data-aos-delay="200">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Укажи путь к Paks</h3>
+                        <p>В лаунчере укажи путь: <code>Steam\steamapps\common\SCUM\SCUM\Content\Paks\Создать папку ~mods</code></p>
+                    </div>
+                </div>
+                <div class="guide-step" data-aos="fade-left" data-aos-delay="250">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Установи моды</h3>
+                        <p>Нажми «Установить моды». Дождись завершения — лаунчер автоматически скачает и установит все необходимые моды.</p>
+                    </div>
+                </div>
+                <div class="guide-step" data-aos="fade-right" data-aos-delay="300">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Запусти игру</h3>
+                        <p>Нажми «Запустить игру» в лаунчере. Или через Steam с параметром запуска <code>-fileopenlog</code></p>
+                    </div>
+                </div>
+                <div class="guide-step" data-aos="fade-left" data-aos-delay="350">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Подключись к серверу</h3>
+                        <p>В главном меню выбери «Поиск серверов». Введи IP: <code id="guideIp">85.88.179.207:7004</code></p>
+                    </div>
+                </div>
+                <div class="guide-step" data-aos="fade-right" data-aos-delay="400">
+                    <div class="step-number">07</div>
+                    <div class="step-content">
+                        <h3>Начни выживать!</h3>
+                        <p>Создай персонажа, изучи мир, найди ресурсы и построй свою первую базу. Добро пожаловать!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="launcher-info" data-aos="fade-up" data-aos-delay="100">
+                <h3><i class="fas fa-info-circle"></i> Установка лаунчера не обязательна</h3>
+                <p>Можно играть на сервере и без лаунчера — просто подключись по IP. Но лаунчер удобнее: он автоматически установит все моды.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#hero" class="footer-logo">
+                        <span class="logo-icon"><i class="fas fa-skull-crossbones"></i></span>
+                <span class="logo-text">AMURKA <span class="accent">PVE MOD</span></span>
+                    </a>
+                    <p>SCUM PVE Сервер</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#about">О сервере</a></li>
+                        <li><a href="#rules">Правила</a></li>
+                        <li><a href="#mods">Моды</a></li>
+                        <li><a href="#commands">Команды</a></li>
+                        <li><a href="#news">Новости</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <ul>
+                        <li><a href="https://wargm.ru/server/77385" target="_blank"><i class="fas fa-globe"></i> Проект на Wargm</a></li>
+                        <li><a href="https://lolka.gg/xq3Mo6u" target="_blank"><i class="fas fa-comments"></i> LOLKA (Чат)</a></li>
+                        <li><a href="https://disk.yandex.ru/d/GFBxfdeUMHA8mA" target="_blank"><i class="fas fa-download"></i> Скачать лаунчер</a></li>
+                    </ul>
+                </div>
+                <div class="footer-connect">
+                    <h4>Подключиться</h4>
+                    <div class="footer-ip">
+                        <code id="footerIp">85.88.179.207:7004</code>
+                        <button class="copy-btn" data-copy="85.88.179.207:7004">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AMURKA PVE.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastText">IP скопирован!</span>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/nicbarker/glightbox@master/dist/js/glightbox.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
