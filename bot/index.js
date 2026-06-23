@@ -74,7 +74,7 @@ client.on('guildMemberAdd', async (member) => {
       `Привет, ${member}! Добро пожаловать на сервер.\n\n` +
       `📜 Ознакомься с правилами в канале #правила\n` +
       `📥 Скачай лаунчер: https://disk.yandex.ru/d/GFBxfdeUMHA8mA\n` +
-      `🌐 Наш сайт: https://tolyan28rus.github.io/amurka-pve/\n` +
+      `🌐 Наш сайт: https://amurka-pve-scum.github.io/amurka-pve/\n` +
       `🎮 IP сервера: **85.88.179.207:7004**\n\n` +
       `Используй \`!help\` для списка команд`
     );
@@ -211,7 +211,7 @@ async function sendServerInfo(channel) {
     `Версия: ${d.version || 'Неизвестно'}\n` +
     `Регион: ${d.region || 'Неизвестно'}\n` +
     `IP: 85.88.179.207:7004\n` +
-    `Сайт: https://tolyan28rus.github.io/amurka-pve/\n\n` +
+    `Сайт: https://amurka-pve-scum.github.io/amurka-pve/\n\n` +
     `_Данные: BattleMetrics_`
   );
 }
