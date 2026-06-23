@@ -114,35 +114,42 @@ body {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     text-decoration: none;
     color: var(--text-primary);
     font-family: var(--font-heading);
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: 700;
+    flex-shrink: 0;
 }
 
 .logo-icon {
     color: var(--accent-green);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 4px;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+
+.nav-menu::-webkit-scrollbar { display: none; }
 
 .nav-link {
     text-decoration: none;
     color: var(--text-secondary);
-    padding: 8px 14px;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 500;
     transition: var(--transition);
     position: relative;
+    white-space: nowrap;
 }
 
 .nav-link:hover,
