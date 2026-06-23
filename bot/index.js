@@ -1,0 +1,226 @@
+import 'dotenv/config';
+import { Client, GatewayIntentBits } from 'discord.js';
+import { Octokit } from '@octokit/rest';
+
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+  rest: { api: 'https://lolka.app/api/bot' },
+});
+
+const CHANNEL_SCREENSHOTS = process.env.CHANNEL_SCREENSHOTS || '';
+const CHANNEL_NEWS = process.env.CHANNEL_NEWS || '';
+const CHANNEL_WELCOME = process.env.CHANNEL_WELCOME || '';
+const GUILD_ID = process.env.GUILD_ID || '';
+const ROLE_PLAYERS = process.env.ROLE_PLAYERS || '';
+
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const [owner, repo] = (process.env.GITHUB_REPO || '').split('/');
+
+client.on('messageCreate', async (message) => {
+  if (message.author?.bot) return;
+
+  const channel = message.channel;
+
+  if (CHANNEL_SCREENSHOTS && channel.id === CHANNEL_SCREENSHOTS) {
+    const attachments = message.attachments.filter((a) =>
+      /\.(jpg|jpeg|png|gif|webp)$/i.test(a.name)
+    );
+    if (attachments.size > 0) {
+      await updateScreenshots(message, attachments);
+    }
+  }
+
+  if (CHANNEL_NEWS && channel.id === CHANNEL_NEWS) {
+    await updateNews(message);
+  }
+
+  if (!message.content) return;
+  const cmd = message.content.trim();
+  try {
+    if (cmd === '!status') await sendServerStatus(channel);
+    else if (cmd === '!help') await sendHelp(channel);
+    else if (cmd === '!online') await sendOnlinePlayers(channel);
+    else if (cmd === '!ping') await sendPing(channel);
+    else if (cmd === '!server') await sendServerInfo(channel);
+  } catch (e) {
+    console.error('❌ Command error:', e.message);
+    channel.send('❌ Ошибка выполнения команды').catch(() => {});
+  }
+});
+
+client.on('guildMemberAdd', async (member) => {
+  if (member.guild.id !== GUILD_ID) return;
+
+  if (ROLE_PLAYERS) {
+    try {
+      const role = member.guild.roles.cache.get(ROLE_PLAYERS);
+      if (role) await member.roles.add(role);
+    } catch (e) {
+      console.error('Role assign error:', e.message);
+    }
+  }
+
+  const channel = member.guild.channels.cache.get(CHANNEL_WELCOME);
+  if (!channel) return;
+
+  try {
+    await channel.send(
+      `🏝️ **Добро пожаловать на AMURKA PVE!**\n\n` +
+      `Привет, ${member}! Добро пожаловать на сервер.\n\n` +
+      `📜 Ознакомься с правилами в канале #правила\n` +
+      `📥 Скачай лаунчер: https://disk.yandex.ru/d/GFBxfdeUMHA8mA\n` +
+      `🌐 Наш сайт: https://tolyan28rus.github.io/amurka-pve/\n` +
+      `🎮 IP сервера: **85.88.179.207:7004**\n\n` +
+      `Используй \`!help\` для списка команд`
+    );
+  } catch (e) {
+    console.error('❌ Welcome error:', e.message);
+  }
+});
+
+async function updateScreenshots(message, attachments) {
+  try {
+    const { data: file } = await octokit.repos.getContent({
+      owner, repo, path: 'data/screenshots.json',
+    }).catch(() => ({ data: null }));
+
+    let screenshots = [];
+    if (file?.content) {
+      screenshots = JSON.parse(Buffer.from(file.content, 'base64').toString());
+    }
+
+    for (const [, att] of attachments) {
+      screenshots.unshift({
+        url: att.url,
+        author: message.author.username,
+        date: new Date().toISOString(),
+        message: message.content || '',
+      });
+    }
+
+    screenshots = screenshots.slice(0, 50);
+
+    await octokit.repos.createOrUpdateFileContents({
+      owner, repo, path: 'data/screenshots.json',
+      message: `Update screenshots from ${message.author.username}`,
+      content: Buffer.from(JSON.stringify(screenshots, null, 2)).toString('base64'),
+      sha: file?.sha,
+    });
+
+    console.log(`✅ Screenshots updated: ${attachments.size} file(s)`);
+  } catch (e) {
+    console.error('❌ Screenshot update error:', e.message);
+  }
+}
+
+async function updateNews(message) {
+  try {
+    const { data: file } = await octokit.repos.getContent({
+      owner, repo, path: 'data/news.json',
+    }).catch(() => ({ data: null }));
+
+    let news = [];
+    if (file?.content) {
+      news = JSON.parse(Buffer.from(file.content, 'base64').toString());
+    }
+
+    news.unshift({
+      title: message.content.split('\n')[0] || 'Новость',
+      content: message.content,
+      author: message.author.username,
+      date: new Date().toISOString(),
+      attachments: message.attachments.map((a) => a.url),
+    });
+
+    news = news.slice(0, 20);
+
+    await octokit.repos.createOrUpdateFileContents({
+      owner, repo, path: 'data/news.json',
+      message: `Update news from ${message.author.username}`,
+      content: Buffer.from(JSON.stringify(news, null, 2)).toString('base64'),
+      sha: file?.sha,
+    });
+
+    console.log(`✅ News updated: ${message.author.username}`);
+  } catch (e) {
+    console.error('❌ News update error:', e.message);
+  }
+}
+
+async function sendServerStatus(channel) {
+  const res = await fetch('https://api.battlemetrics.com/servers/38990087');
+  const data = await res.json();
+  const a = data.data.attributes;
+
+  const status = a.status === 'online' ? '🟢 Онлайн' : '🔴 Офлайн';
+  await channel.send(
+    `**🎮 AMURKA PVE MOD — Статус**\n\n` +
+    `Статус: ${status}\n` +
+    `Игроки: ${a.players} / ${a.maxPlayers}\n` +
+    `Версия: ${a.details.version.substring(0, 11)}\n` +
+    `IP: 85.88.179.207:7004\n\n` +
+    `_Данные: BattleMetrics_`
+  );
+}
+
+async function sendHelp(channel) {
+  await channel.send(
+    `**📋 Команды бота**\n\n` +
+    `\`!status\` — Статус сервера (онлайн/оффлайн, игроки)\n` +
+    `\`!online\` — Список игроков на сервере\n` +
+    `\`!server\` — Подробная информация о сервере\n` +
+    `\`!ping\` — Пинг бота\n` +
+    `\`!help\` — Это сообщение`
+  );
+}
+
+async function sendOnlinePlayers(channel) {
+  const res = await fetch('https://api.battlemetrics.com/servers/38990087?include=players');
+  const data = await res.json();
+  const players = data.included?.filter((p) => p.type === 'player') || [];
+
+  if (players.length === 0) {
+    return channel.send('Сейчас никто не онлайн');
+  }
+
+  const list = players.map((p, i) => `${i + 1}. ${p.attributes.name}`).join('\n');
+  await channel.send(`**🟢 Онлайн: ${players.length}**\n\n${list.substring(0, 1900)}\n\n_Данные: BattleMetrics_`);
+}
+
+async function sendPing(channel) {
+  await channel.send(`🏓 Понг! Задержка WS: **${client.ws.ping}ms**`);
+}
+
+async function sendServerInfo(channel) {
+  const res = await fetch('https://api.battlemetrics.com/servers/38990087');
+  const data = await res.json();
+  const a = data.data.attributes;
+  const d = a.details;
+
+  await channel.send(
+    `**ℹ️ AMURKA PVE MOD — Инфо**\n\n` +
+    `Название: ${a.name}\n` +
+    `Карта: ${d.map || 'Неизвестно'}\n` +
+    `Режим: ${d.gameMode || 'PVE'}\n` +
+    `Игроки: ${a.players} / ${a.maxPlayers}\n` +
+    `Версия: ${d.version || 'Неизвестно'}\n` +
+    `Регион: ${d.region || 'Неизвестно'}\n` +
+    `IP: 85.88.179.207:7004\n` +
+    `Сайт: https://tolyan28rus.github.io/amurka-pve/\n\n` +
+    `_Данные: BattleMetrics_`
+  );
+}
+
+client.once('ready', (c) => {
+  console.log(`✅ Бот запущен: ${c.user.tag}`);
+});
+
+process.on('uncaughtException', (e) => console.error('💥', e.message));
+process.on('unhandledRejection', (e) => console.error('💥', e.message));
+
+client.login(process.env.LOLKA_TOKEN);

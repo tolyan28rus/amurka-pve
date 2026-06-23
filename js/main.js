@@ -23,14 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
             card.setAttribute('data-aos', 'fade-up');
             card.setAttribute('data-aos-delay', String(100 + i * 100));
             card.innerHTML = `
-                <div class="streamer-embed">
-                    <iframe src="https://live.vkvideo.ru/embed/${s.slug}" allow="autoplay; fullscreen" loading="lazy"></iframe>
-                </div>
                 <div class="streamer-info">
                     <h3>${s.name}</h3>
                     <p>${s.title}</p>
                     <a href="https://live.vkvideo.ru/${s.slug}" class="streamer-link" target="_blank">
-                        <i class="fab fa-vk"></i> Открыть на VK Видео
+                        <i class="fab fa-vk"></i> VK Видео Live
                     </a>
                 </div>
             `;
