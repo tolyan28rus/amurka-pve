@@ -837,6 +837,24 @@ body {
     margin-bottom: 12px;
 }
 
+.news-date-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin-bottom: 12px;
+    margin-left: 6px;
+}
+
+.news-author {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 12px;
+}
+
 .news-content h3 {
     font-family: var(--font-heading);
     font-size: 1.1rem;
@@ -1004,6 +1022,13 @@ body {
     background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 212, 255, 0.05));
     font-size: 2rem;
     color: var(--text-muted);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .gallery-overlay {
@@ -1370,6 +1395,7 @@ body {
         top: 70px;
         left: 0;
         right: 0;
+        bottom: 0;
         background: rgba(10, 10, 15, 0.98);
         backdrop-filter: blur(20px);
         flex-direction: column;
@@ -1380,6 +1406,7 @@ body {
         opacity: 0;
         pointer-events: none;
         transition: var(--transition);
+        overflow-y: auto;
     }
 
     .nav-menu.active {
@@ -1456,6 +1483,22 @@ body {
     .news-grid {
         grid-template-columns: 1fr;
     }
+
+    .hero-title {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .hero-buttons {
+        gap: 16px;
+    }
+
+    .guide-step {
+        padding: 20px;
+    }
+
+    .news-content h3 {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1477,5 +1520,33 @@ body {
     .hero-stats {
         flex-direction: column;
         gap: 20px;
+    }
+
+    .news-content {
+        padding: 16px;
+    }
+
+    .status-body {
+        padding: 20px;
+    }
+
+    .guides-timeline {
+        padding-left: 40px;
+    }
+
+    .step-number {
+        left: -40px;
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+
+    .guides-timeline::before {
+        left: 15px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }

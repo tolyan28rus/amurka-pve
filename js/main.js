@@ -193,6 +193,61 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchServerStatus();
     setInterval(fetchServerStatus, 30000);
 
+    // ── Load screenshots from bot ──
+    const galleryGrid = document.querySelector('.gallery-grid');
+    if (galleryGrid) {
+        fetch('data/screenshots.json')
+            .then(r => r.json())
+            .then(screenshots => {
+                if (!screenshots.length) return;
+                galleryGrid.innerHTML = '';
+                screenshots.forEach((s, i) => {
+                    const a = document.createElement('a');
+                    a.href = s.url;
+                    a.className = 'gallery-item glightbox';
+                    a.setAttribute('data-aos', 'zoom-in');
+                    a.setAttribute('data-aos-delay', String(100 + i * 50));
+                    a.innerHTML = `
+                        <img src="${s.url}" alt="Screenshot by ${s.author}" loading="lazy">
+                        <div class="gallery-overlay">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                    `;
+                    galleryGrid.appendChild(a);
+                });
+            })
+            .catch(() => {});
+    }
+
+    // ── Load news from bot ──
+    const newsGrid = document.querySelector('.news-grid');
+    if (newsGrid) {
+        fetch('data/news.json')
+            .then(r => r.json())
+            .then(news => {
+                if (!news.length) return;
+                newsGrid.innerHTML = '';
+                news.forEach((n, i) => {
+                    const article = document.createElement('article');
+                    article.className = 'news-card' + (i === 0 ? ' featured' : '');
+                    article.setAttribute('data-aos', 'fade-up');
+                    article.setAttribute('data-aos-delay', String(100 + i * 100));
+                    const date = new Date(n.date).toLocaleDateString('ru-RU');
+                    article.innerHTML = `
+                        <div class="news-content">
+                            <span class="news-tag">Новость</span>
+                            <span class="news-date-tag">${date}</span>
+                            <h3>${n.title}</h3>
+                            <p>${n.content.replace(/\n/g, '<br>')}</p>
+                            <p class="news-author">— ${n.author}</p>
+                        </div>
+                    `;
+                    newsGrid.appendChild(article);
+                });
+            })
+            .catch(() => {});
+    }
+
     // ── GLightbox ──
     if (typeof GLightbox !== 'undefined') {
         GLightbox({
