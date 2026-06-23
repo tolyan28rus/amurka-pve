@@ -199,12 +199,13 @@ async function updateGuides(message) {
     const hashtags = [];
     const contentLines = [];
 
+    const hashtagRe = /#[^\s#]+/g;
     for (const line of bodyLines) {
-      const tags = line.match(/#\w+/g);
+      const tags = line.match(hashtagRe);
       if (tags) {
         hashtags.push(...tags.map(t => t.slice(1).toLowerCase()));
       }
-      contentLines.push(line.replace(/#\w+/g, '').trim());
+      contentLines.push(line.replace(hashtagRe, '').trim());
     }
 
     const rawCategory = hashtags.find(t => CATEGORY_MAP[t]) || 'гайд';
