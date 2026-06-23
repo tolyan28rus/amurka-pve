@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Server status from BattleMetrics API ──
     const statusDot = document.querySelector('.status-dot');
     const statusText = document.getElementById('statusText');
+    const onlineCount = document.getElementById('onlineCount');
     const maxPlayers = document.getElementById('maxPlayers');
     const serverVersion = document.getElementById('serverVersion');
     const serverTime = document.getElementById('serverTime');
@@ -174,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusText.textContent = 'Офлайн';
             }
 
+            if (onlineCount) onlineCount.textContent = attrs.players;
             if (maxPlayers) maxPlayers.textContent = attrs.maxPlayers;
             if (serverVersion) serverVersion.textContent = attrs.details.version.substring(0, 11);
             if (serverTime) serverTime.textContent = attrs.details.time || '—';
