@@ -14,9 +14,29 @@ const client = new Client({
 
 const CHANNEL_SCREENSHOTS = process.env.CHANNEL_SCREENSHOTS || '';
 const CHANNEL_NEWS = process.env.CHANNEL_NEWS || '';
+const CHANNEL_GUIDES = process.env.CHANNEL_GUIDES || '';
 const CHANNEL_WELCOME = process.env.CHANNEL_WELCOME || '';
 const GUILD_ID = process.env.GUILD_ID || '';
 const ROLE_PLAYERS = process.env.ROLE_PLAYERS || '';
+
+const CATEGORY_MAP = {
+  'охота': 'охота',
+  'база': 'база',
+  'крафт': 'крафт',
+  'pve': 'pve',
+  'экономика': 'экономика',
+  'новичкам': 'новичкам',
+};
+
+const CATEGORY_ICONS = {
+  'охота': 'fa-crosshairs',
+  'база': 'fa-home',
+  'крафт': 'fa-tools',
+  'pve': 'fa-skull',
+  'экономика': 'fa-coins',
+  'новичкам': 'fa-heart',
+  'гайд': 'fa-book',
+};
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 const [owner, repo] = (process.env.GITHUB_REPO || '').split('/');
@@ -37,6 +57,10 @@ client.on('messageCreate', async (message) => {
 
   if (CHANNEL_NEWS && channel.id === CHANNEL_NEWS) {
     await updateNews(message);
+  }
+
+  if (CHANNEL_GUIDES && channel.id === CHANNEL_GUIDES) {
+    await updateGuides(message);
   }
 
   if (!message.content) return;
@@ -149,6 +173,82 @@ async function updateNews(message) {
     console.log(`✅ News updated: ${message.author.username}`);
   } catch (e) {
     console.error('❌ News update error:', e.message);
+  }
+}
+
+function slugify(text) {
+  const ru = 'а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я'.split(' ');
+  const en = 'a b v g d e yo zh z i y k l m n o p r s t u f kh ts ch sh shch y y e yu ya'.split(' ');
+  return text.toLowerCase()
+    .replace(/[а-яё]/g, (c) => {
+      const i = ru.indexOf(c);
+      return i >= 0 ? en[i] : c;
+    })
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .substring(0, 40) || 'guide';
+}
+
+async function updateGuides(message) {
+  try {
+    const lines = message.content.split('\n');
+    const title = lines[0].trim() || 'Гайд';
+    const bodyLines = lines.slice(1);
+    const hashtags = [];
+    const contentLines = [];
+
+    for (const line of bodyLines) {
+      const tags = line.match(/#\w+/g);
+      if (tags) {
+        hashtags.push(...tags.map(t => t.slice(1).toLowerCase()));
+      }
+      contentLines.push(line.replace(/#\w+/g, '').trim());
+    }
+
+    const rawCategory = hashtags.find(t => CATEGORY_MAP[t]) || 'гайд';
+    const category = CATEGORY_MAP[rawCategory] || rawCategory;
+    const icon = CATEGORY_ICONS[category] || CATEGORY_ICONS['гайд'];
+
+    const cleanBody = contentLines.filter(l => l).join('\n');
+    const paragraphs = cleanBody.split('\n').filter(l => l.trim());
+    const contentHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('');
+
+    const id = slugify(title) + '-' + Date.now().toString(36);
+
+    const description = paragraphs[0]?.substring(0, 120) || title;
+
+    const { data: file } = await octokit.repos.getContent({
+      owner, repo, path: 'data/guides.json',
+    }).catch(() => ({ data: null }));
+
+    let guides = [];
+    if (file?.content) {
+      guides = JSON.parse(Buffer.from(file.content, 'base64').toString());
+    }
+
+    guides.unshift({
+      id,
+      title,
+      description,
+      category,
+      icon,
+      content: contentHTML,
+    });
+
+    guides = guides.slice(0, 30);
+
+    await octokit.repos.createOrUpdateFileContents({
+      owner, repo, path: 'data/guides.json',
+      message: `Add guide: ${title}`,
+      content: Buffer.from(JSON.stringify(guides, null, 2)).toString('base64'),
+      sha: file?.sha,
+    });
+
+    console.log(`✅ Guide added: ${title} (${category})`);
+  } catch (e) {
+    console.error('❌ Guide update error:', e.message);
   }
 }
 
