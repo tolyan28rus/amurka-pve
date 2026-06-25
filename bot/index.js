@@ -135,7 +135,7 @@ async function updateScreenshots(message, attachments) {
           sha: undefined,
         });
 
-        const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${imgPath}`;
+        const rawUrl = `https://${repo}/${imgPath}`;
 
         screenshots.unshift({
           url: rawUrl,
@@ -261,7 +261,7 @@ async function updateGuides(message) {
           content: b64,
         });
 
-        guideImages.push(`https://raw.githubusercontent.com/${owner}/${repo}/main/${imgPath}`);
+        guideImages.push(`https://${repo}/${imgPath}`);
       } catch (uploadErr) {
         console.error('❌ Guide image upload error:', uploadErr.message);
       }
