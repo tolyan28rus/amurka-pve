@@ -243,9 +243,29 @@ async function updateGuides(message) {
       guides = JSON.parse(Buffer.from(file.content, 'base64').toString());
     }
 
-    const images = message.attachments
-      .filter(a => /\.(jpg|jpeg|png|gif|webp)$/i.test(a.name))
-      .map(a => a.url);
+    const guideImages = [];
+    for (const [, att] of message.attachments) {
+      if (!/\.(jpg|jpeg|png|gif|webp)$/i.test(att.name)) continue;
+      const ext = att.name.includes('.') ? att.name.split('.').pop() : 'webp';
+      const ts = Date.now();
+      const imgPath = `data/guides/${ts}.${ext}`;
+
+      try {
+        const imgRes = await fetch(att.url);
+        const imgBuf = Buffer.from(await imgRes.arrayBuffer());
+        const b64 = imgBuf.toString('base64');
+
+        await octokit.repos.createOrUpdateFileContents({
+          owner, repo, path: imgPath,
+          message: `Guide image: ${title}`,
+          content: b64,
+        });
+
+        guideImages.push(`https://raw.githubusercontent.com/${owner}/${repo}/main/${imgPath}`);
+      } catch (uploadErr) {
+        console.error('❌ Guide image upload error:', uploadErr.message);
+      }
+    }
 
     guides.unshift({
       id,
@@ -253,7 +273,7 @@ async function updateGuides(message) {
       description,
       category,
       icon,
-      images,
+      images: guideImages,
       content: contentHTML,
     });
 
